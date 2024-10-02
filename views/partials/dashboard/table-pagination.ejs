@@ -1,0 +1,36 @@
+<nav>
+  <ul class="flex items-center text-sm leading-tight bg-white border divide-x rounded h-9 text-neutral-500 divide-neutral-200 border-neutral-200">
+    <% if (meta.currentPage> 1) { %>
+    <li class="h-full">
+      <button type="button" hx-get="/<%=path %>?page=<%= meta.currentPage - 1 %>&limit=<%= meta.itemsPerPage %>" hx-select="#content-<%=path %>" hx-target="#content-<%=path %>" hx-indicator=".htmx-indicator" hx-swap="outerHTML" hx-push-url=true class="relative inline-flex items-center h-full px-3 ml-0 rounded-l group hover:text-neutral-900">
+        <span>Previous</span>
+      </button>
+    </li>
+    <% } %>
+
+    <% meta.pagination.forEach(function(page) { %>
+    <% if (page==='...' ) { %>
+    <span>...</span>
+    <% } else { %>
+    <li class="hidden h-full md:block">
+
+      <button type="button" hx-get="/<%=path %>?page=<%= page %>&limit=<%= meta.itemsPerPage %>" hx-select="#content-<%=path %>" hx-target="#content-<%=path %>" hx-indicator=".htmx-indicator" hx-swap="outerHTML" hx-push-url=true class="relative inline-flex items-center h-full px-3 group hover:text-neutral-900" <%=page==meta.currentPage ? 'class="active"' : '' %>>
+        <span>
+          <%= page %>
+        </span>
+        <span class="box-content absolute bottom-0 w-0 h-px -mx-px duration-200 ease-out translate-y-px border-transparent bg-neutral-900 group-hover:border-l group-hover:border-r group-hover:border-neutral-900 left-1/2 group-hover:left-0 group-hover:w-full"></span>
+      </button>
+    </li>
+    <% } %>
+    <% }); %>
+
+
+    <% if (meta.currentPage < meta.totalPages) { %>
+    <li class="h-full">
+      <button type="button" hx-get="/<%=path %>?page=<%= meta.currentPage + 1 %>&limit=<%= meta.itemsPerPage %>" hx-select="#content-<%=path %>" hx-target="#content-<%=path %>" hx-indicator=".htmx-indicator" hx-swap="outerHTML" hx-push-url=true class="relative inline-flex items-center h-full px-3 rounded-r group hover:text-neutral-900">
+        <span>Next</span>
+        </a>
+    </li>
+    <% } %>
+  </ul>
+</nav>

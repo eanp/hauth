@@ -1,0 +1,45 @@
+<%- contentFor('body') %>
+
+  <div class="flex h-screen">
+
+    <!-- Mobile menu button -->
+    <button id="menuButton" class="lg:hidden fixed top-4 left-4 z-20 p-2 rounded-md bg-gray-800 text-white">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+      </svg>
+    </button>
+
+    <!-- Sidebar -->
+    <div id="sidebar"
+      class="sidebar fixed inset-y-0 left-0 w-64 bg-white border-r border-gray-200 p-4 overflow-y-auto lg:relative lg:translate-x-0">
+      <nav class="mt-8 lg:mt-0">
+
+        <div class="mb-4">
+          <button
+            class="flex items-center justify-between w-full text-left font-semibold text-gray-900 hover:text-blue-600">
+            Getting Started
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+              class="w-5 h-5">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+          </button>
+          <ul class="mt-2 space-y-2 hidden">
+            <li><a href="#" class="block pl-4 text-sm text-gray-600 hover:text-blue-600">Introduction</a></li>
+          </ul>
+        </div>
+
+        <!-- menu -->
+          <a href="/logout" class="relative flex cursor-default select-none hover:bg-neutral-100 items-center rounded px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 mr-2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" x2="9" y1="12" y2="12"></line></svg>
+              <span>Log out</span>
+          </a>
+      </nav>
+    </div>
+
+    <!-- Main content -->
+    <div class="flex-1 p-10">
+      <h1 class="text-2xl font-bold mb-4 text-black"></h1>
+      <p>Your main content goes here.</p>
+    </div>
+
+  </div>

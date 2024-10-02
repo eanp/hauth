@@ -1,0 +1,125 @@
+<%- contentFor('body') %>
+  <div class="flex h-screen" id="main">
+
+    <%- include('../partials/sidebar.ejs') %>
+
+      <!-- Main content -->
+      <div class="flex-1 p-10 overflow-y-auto" id="content-<%=path %>">
+
+        <%- include('../partials/dashboard/breadcrumb.ejs') %>
+          <%- include('../partials/dashboard/titlesummary.ejs') %>
+            <%- include('../partials/dashboard/tablebar.ejs') %>
+
+
+
+              <!-- user table -->
+              <div class="flex flex-col">
+                <div class="overflow-x-auto">
+                  <div class="inline-block min-w-full">
+                    <div class="overflow-hidden border rounded-lg">
+                      <table class="min-w-full divide-y divide-neutral-200">
+                        <thead class="bg-neutral-50">
+                          <tr class="text-neutral-500">
+                            <% tablehead.forEach(function(value) { %>
+                              <th
+                                class="px-5 text-xs font-medium text-left uppercase">
+                                <div class="flex flex-row justify-between items-center">
+                                    <%= value.name.replace(/_/g, ' ') %>
+
+                                  <span class="flex flex-col gap-1">
+                                    <button type="button" class="" hx-get="<%=url %><%= url.substring(1) === path ? "?":"&"%>sort=<%=value.name %>:asc" hx-select="#content-<%=path %>"
+                                      hx-target="#content-<%=path %>" hx-indicator=".htmx-indicator" hx-push-url="true"
+                                      hx-swap="outerHTML">
+                                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" height="20" width="20"><path fill="#FFD43B" d="M182.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-128 128c-9.2 9.2-11.9 22.9-6.9 34.9s16.6 19.8 29.6 19.8l256 0c12.9 0 24.6-7.8 29.6-19.8s2.2-25.7-6.9-34.9l-128-128z"/></svg>
+
+                                  </button>
+                                    <button type="button" class="" hx-get="<%=url %><%= url.substring(1) === path ? "?":"&"%>sort=<%=value.name %>:asc" hx-select="#content-<%=path %>"
+                                      hx-target="#content-<%=path %>" hx-indicator=".htmx-indicator" hx-push-url="true"
+                                      hx-swap="outerHTML">
+                                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" height="20" width="20"><path fill="#FFD43B" d="M182.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-128 128c-9.2 9.2-11.9 22.9-6.9 34.9s16.6 19.8 29.6 19.8l256 0c12.9 0 24.6-7.8 29.6-19.8s2.2-25.7-6.9-34.9l-128-128z"/></svg>
+
+                                  </button>
+                              </span>
+
+
+                            </div>
+                              </th>
+                              <% }); %>
+                          </tr>
+                        </thead>
+                        <tbody class="divide-y divide-neutral-200 bg-white">
+                          <% data.forEach(item=> { %>
+                            <tr class="text-neutral-800" id="<%= item.id %>">
+                              <td class="px-5 py-4 text-sm font-medium whitespace-nowrap">
+                                <%= item.id %>
+                              </td>
+                              <td class="px-5 py-4 text-sm whitespace-nowrap">
+                                <%= item.name %>
+                              </td>
+                              <td class="px-5 py-4 text-sm whitespace-nowrap">
+                                <%= item.email %>
+                              </td>
+                              <td class="px-5 py-4 text-sm whitespace-nowrap">
+                                <%= item.created_at.substring(0,10) %>
+                              </td>
+                              <td class="px-5 py-4 text-sm whitespace-nowrap">
+                                <%= item.updated_at %>
+                              </td>
+                              <td class="px-5 py-4 text-sm font-medium text-right whitespace-nowrap">
+                                <button type="button" class="text-blue-600 hover:text-blue-700" href="#"
+                                  hx-get="/user/edit/=<%= item.id %>" hx-select="#content-user"
+                                  hx-target="#content-user" hx-indicator=".htmx-indicator" hx-swap="outerHTML"
+                                  hx-push-url=true>Edit</button>
+                              </td>
+                            </tr>
+                              <div class="" id="form-edit-<%= item.id %>"></div>
+                            <% }); %>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- meta pagination   -->
+              <div class="flex items-center justify-between w-full h-16 px-3 border-t border-neutral-200 ">
+
+                <div class="flex flex-row">
+                  <!-- item count -->
+                  <p class="pl-2 text-sm text-gray-700">Showing <span class="font-medium">
+                      <%= meta.startItems %>
+                    </span> to <span class="font-medium">
+                      <%= meta.endItems %>
+                    </span> of <span class="font-medium">
+                      <%= meta.totalItems %>
+                    </span> results
+                  </p>
+
+                  <!-- item per page -->
+                  <div class="inline-block relative w-16 ml-4">
+                    <select
+                      class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-2 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+                      name="limit" hx-get="/user" hx-select="#content-user" hx-target="#content-user"
+                      hx-indicator=".htmx-indicator" hx-swap="outerHTML" hx-push-url="true">
+                      <% [10, 25, 50, 100].forEach(function(value) { %>
+                        <option value="<%= value %>" <%=meta.itemsPerPage==value ? 'selected' : '' %>><%= value %>
+                        </option>
+                        <% }); %>
+                    </select>
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                      <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                        <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                      </svg>
+                    </div>
+                  </div>
+
+
+                </div>
+
+
+                <!-- pagination -->
+                <%- include('../partials/dashboard/table-pagination.ejs') %>
+              </div>
+
+      </div>
+  </div>

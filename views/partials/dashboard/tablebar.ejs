@@ -1,0 +1,29 @@
+<!-- tablebar -->
+<div class="flex flex-row my-2 justify-between px-2 py-2 border-2 border-neutral-400/60 rounded-md">
+  <div class="flex">
+
+    <div class="h-8 lg:w-48 w-1/2">
+      <input id="search-<%=path %>" class="form-control h-8 flex w-full px-2 py-1 text-sm bg-white border rounded-md border-neutral-300 ring-offset-background placeholder:text-neutral-500 focus:border-neutral-300 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-neutral-400 disabled:cursor-not-allowed disabled:opacity-50" type="search" name="search" placeholder="search item" hx-get="/<%=path %>" hx-trigger="input changed delay:500ms, search" hx-select="#content-<%=path %>" hx-target="#content-<%=path %>" hx-indicator=".htmx-indicator" hx-push-url="true" value="<%= query.search %>" hx-swap="outerHTML">
+    </div>
+
+    <% if (query.search) { %>
+      <button type="button" class="ml-2 h-8 inline-flex items-center justify-center px-2 py-1 text-sm font-medium tracking-wide text-white transition-colors duration-200 rounded-md bg-neutral-950 hover:bg-neutral-900 focus:ring-2 focus:ring-offset-2 focus:ring-neutral-900 focus:shadow-outline focus:outline-none" hx-get="/<%=path %>" hx-select="#content-<%=path %>" hx-target="#content-<%=path %>" hx-indicator=".htmx-indicator" hx-push-url="true" hx-swap="outerHTML">
+        Reset
+      </button>
+      <% } %>
+
+    </div>
+
+    <%- include('./loading.ejs') %>
+
+    <% if(message!==""){%>
+      <%- include('./toast.ejs') %>
+    <% } %>
+
+    <div class="">
+      <button type="button" class="ml-2 h-8 inline-flex items-center justify-center px-2 py-1 text-sm font-medium tracking-wide text-white transition-colors duration-200 rounded-md bg-neutral-950 hover:bg-neutral-900 focus:ring-2 focus:ring-offset-2 focus:ring-neutral-900 focus:shadow-outline focus:outline-none" hx-get="/<%=path %>" hx-select="#content-<%=path %>" hx-target="#content-<%=path %>" hx-indicator=".htmx-indicator" hx-push-url="true" hx-swap="outerHTML">
+        <svg xmlns="http://www.w3.org/2000/svg" class="mr-2" width="16" height="16"  viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#ffffff" d="M3.9 54.9C10.5 40.9 24.5 32 40 32l432 0c15.5 0 29.5 8.9 36.1 22.9s4.6 30.5-5.2 42.5L320 320.9 320 448c0 12.1-6.8 23.2-17.7 28.6s-23.8 4.3-33.5-3l-64-48c-8.1-6-12.8-15.5-12.8-25.6l0-79.1L9 97.3C-.7 85.4-2.8 68.8 3.9 54.9z"/></svg>
+        Filter
+      </button>
+    </div>
+</div>

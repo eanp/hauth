@@ -1,0 +1,25 @@
+<!-- breadcrumb -->
+<nav class="flex px-3.5 py-1 border-2 border-neutral-200/60 rounded-md inline-flex">
+
+  <ol class="inline-flex items-center space-x-1 text-xs text-neutral-500 [&_.active-breadcrumb]:text-neutral-600 [&_.active-breadcrumb]:font-medium sm:mb-0">
+
+    <!-- menu universal breadcrumb -->
+    <li class="flex items-center h-full">
+      <div class="py-1 hover:text-neutral-900">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 448 512">
+          <path d="M0 96C0 78.3 14.3 64 32 64l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 288c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32L32 448c-17.7 0-32-14.3-32-32s14.3-32 32-32l384 0c17.7 0 32 14.3 32 32z" />
+        </svg>
+      </div>
+    </li>
+
+    <svg class="w-5 h-5 text-gray-400/70" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <g fill="none" stroke="none">
+        <path d="M10 8.013l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+      </g>
+    </svg>
+
+    <li>
+      <p class="inline-flex items-center py-1 font-normal rounded cursor-default active-breadcrumb focus:outline-none capitalize"><%= url.substring(1) %></p>
+    </li>
+  </ol>
+</nav>
